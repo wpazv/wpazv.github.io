@@ -1,42 +1,85 @@
+/* 全局样式 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* 计算器容器 */
 .calculator {
-    width: 300px;
-    margin: 50px auto;
-    background: #2c3e50;
-    padding: 20px;
+    background-color: #fff;
     border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 20px;
 }
 
+/* 显示屏 */
 #display {
-    width: 100%;
-    padding: 15px;
-    font-size: 24px;
-    margin-bottom: 20px;
+    width: 90%;
+    height: 60px;
+    font-size: 28px;
     text-align: right;
-    border: none;
+    margin: 0 auto 15px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
+/* 按钮网格 */
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
+/* 按钮样式 */
 button {
-    padding: 15px;
-    font-size: 18px;
+    height: 50px;
+    font-size: 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background: #ecf0f1;
+    transition: background-color 0.2s;
 }
 
+button:hover {
+    background-color: #e0e0e0;
+}
+
+/* 操作符按钮 */
+.operator {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+/* 等号按钮 */
 .equals {
-    grid-column: span 1;
-    background: #e74c3c;
+    background-color: #4CAF50;
+    color: white;
+    grid-column: span 2;
+}
+
+.equals:hover {
+    background-color: #45a049;
+}
+
+/* 清除按钮 */
+.clear {
+    background-color: #f44336;
     color: white;
 }
 
+.clear:hover {
+    background-color: #d32f2f;
+}
+
+/* 按键按下效果 */
 button:active {
-    transform: scale(0.98);
+    transform: translateY(2px);
 }
