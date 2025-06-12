@@ -609,23 +609,28 @@
         document.addEventListener('keydown', e => {
             switch(e.key) {
                 case 'ArrowUp':
+                    e.preventDefault();
                     if (direction !== 'down') nextDirection = 'up';
                     break;
                 case 'ArrowDown':
+                    e.preventDefault();
                     if (direction !== 'up') nextDirection = 'down';
                     break;
                 case 'ArrowLeft':
+                    e.preventDefault();
                     if (direction !== 'right') nextDirection = 'left';
                     break;
                 case 'ArrowRight':
+                    e.preventDefault();
                     if (direction !== 'left') nextDirection = 'right';
                     break;
                 case ' ':
+                    e.preventDefault();
                     if (gameRunning) pauseGame();
                     else startGame();
                     break;
             }
-        });
+        }, { passive: false });
         
         // 按钮事件
         document.getElementById('start-btn').addEventListener('click', startGame);
