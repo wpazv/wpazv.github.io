@@ -48,13 +48,13 @@
       cursor: pointer;
       box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
-    .btn:last-child {
+    .btnlast-child {
       margin-right: 0;
     }
-    .btn:first-child {
+    .btnfirst-child {
       margin-left: 0;
     }
-    .btn:active {
+    .btnactive {
       background: #cfd8dc;
     }
     .btn.op {
@@ -79,6 +79,7 @@
 </head>
 <body>
   <div id="calc">
+    <div id="history" style="height:70px;margin-bottom:10px;background:#f7f7fa;border-radius:8px;padding:6px 10px;font-size:14px;color:#888;overflow:hidden;line-height:1.5;min-height:40px;box-sizing:border-box;"></div>
     <input type="text" id="display" disabled>
     <div class="btn-row">
       <button class="btn" onclick="append('7')">7</button>
@@ -107,20 +108,43 @@
     <button class="btn clear" style="width:100%;" onclick="clearDisplay()">清零</button>
   </div>
   <script>
+    let justCalculated = false;
+    let historyArr = [];
+    function updateHistory() {
+      const historyDiv = document.getElementById('history');
+      historyDiv.innerHTML = historyArr.map(item => `<div>${item}</div>`).join('');
+    }
     function append(char) {
-      document.getElementById('display').value += char;
+      const display = document.getElementById('display');
+      if (justCalculated) {
+        display.value = '';
+        justCalculated = false;
+      }
+      display.value += char;
     }
     function clearDisplay() {
       document.getElementById('display').value = '';
+      justCalculated = false;
     }
     function calculate() {
+      const display = document.getElementById('display');
       try {
-        let result = eval(document.getElementById('display').value);
-        document.getElementById('display').value = result;
+        let expr = display.value;
+        let result = eval(expr);
+        display.value = result;
+        justCalculated = true;
+        if(expr && expr !== '错误') {
+          historyArr.push(expr + ' = ' + result);
+          if(historyArr.length > 3) historyArr = historyArr.slice(-3);
+          updateHistory();
+        }
       } catch {
-        document.getElementById('display').value = '错误';
+        display.value = '错误';
+        justCalculated = false;
       }
     }
+    // 初始化历史显示
+    updateHistory();
   </script>
 </body>
 </html>
